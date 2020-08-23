@@ -66,9 +66,9 @@ function loadImg(img, mimeType) {
     });
 }
 
-function getColor(img, quality) {
+function getColor(img, quality, mimeType) {
     return new Promise((resolve, reject) => {
-        getPalette(img, 5, quality)
+        getPalette(img, 5, quality, mimeType)
             .then(palette => {
                 resolve(palette[0]);
             })
@@ -79,14 +79,14 @@ function getColor(img, quality) {
 
 }
 
-function getPalette(img, colorCount = 10, quality = 10) {
+function getPalette(img, colorCount = 10, quality = 10, mimeType = false) {
     const options = validateOptions({
         colorCount,
         quality
     });
 
     return new Promise((resolve, reject) => {
-        loadImg(img)
+        loadImg(img, mimeType)
             .then(imgData => {
                 const pixelCount = imgData.shape[0] * imgData.shape[1];
                 const pixelArray = createPixelArray(imgData.data, pixelCount, options.quality);
