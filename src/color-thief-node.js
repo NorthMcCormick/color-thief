@@ -44,15 +44,25 @@ function validateOptions(options) {
     }
 }
 
-function loadImg(img) {
+function loadImg(img, mimeType) {
     return new Promise((resolve, reject) => {
-        getPixels(img, function(err, data) {
-            if(err) {
-                reject(err)
-            } else {
-                resolve(data);
-            }
-        })
+        if (mimeType) {
+            getPixels(img, mimeType, function(err, data) {
+                if(err) {
+                    reject(err)
+                } else {
+                    resolve(data);
+                }
+            })
+        } else {
+            getPixels(img, function(err, data) {
+                if(err) {
+                    reject(err)
+                } else {
+                    resolve(data);
+                }
+            })
+        }
     });
 }
 
